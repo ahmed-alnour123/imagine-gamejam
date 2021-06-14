@@ -14,6 +14,6 @@ public class PlyerMovment : MonoBehaviour
     void Update()
     {
         string Name = "plyer";
-        int age = 20;
+        int age = 21;
     }
 }
