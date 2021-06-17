@@ -10,9 +10,9 @@ public class Combat : MonoBehaviour {
     public int hitDamage;
     public float radius;
     public KeyCode attackButton = KeyCode.Space;
-    public EnemyType enemyType; // type to distiguishe player from enemies
+    public EntityType entityType; // type to distiguishe player from enemies
 
-    public enum EnemyType { player, enemy }
+    public enum EntityType { player, enemy }
 
     // public event Action<float> onAttack = delegate { };
 
@@ -28,9 +28,9 @@ public class Combat : MonoBehaviour {
 
     /// checks if attack conditions are met
     bool CheckAttack() {
-        switch (enemyType) {
-            case EnemyType.player:
-            case EnemyType.enemy:
+        switch (entityType) {
+            case EntityType.player:
+            case EntityType.enemy:
                 return Input.GetKeyDown(attackButton);
         }
         return false;
@@ -38,10 +38,10 @@ public class Combat : MonoBehaviour {
 
     /// checks if taking damage conditions are met
     bool CheckTakeDamage() {
-        switch (enemyType) {
-            case EnemyType.player:
+        switch (entityType) {
+            case EntityType.player:
                 break;
-            case EnemyType.enemy:
+            case EntityType.enemy:
                 break;
         }
         return true;
@@ -49,16 +49,19 @@ public class Combat : MonoBehaviour {
 
     /// attack the target based on type
     public void Attack() {
-        switch (enemyType) {
-            case EnemyType.player:
+        switch (entityType) {
+            case EntityType.player:
+                var audioManager = AudioManager.audioManager;
+
+                audioManager.Play(Sounds.hit);
                 break;
-            case EnemyType.enemy:
+            case EntityType.enemy:
                 break;
         }
         foreach (var collider in Physics.OverlapSphere(transform.position, radius)) {
             var other = collider.gameObject.GetComponent<Combat>();
             // make sure that other is not null or this object or of the same type
-            if (other == null || other == this || other.enemyType == enemyType) continue;
+            if (other == null || other == this || other.entityType == entityType) continue;
             other.TakeDamage();
         }
     }
@@ -67,11 +70,11 @@ public class Combat : MonoBehaviour {
     public void TakeDamage() {
         if (!CheckTakeDamage()) return;
         currentHealth -= hitDamage;
-        switch (enemyType) {
-            case EnemyType.player:
+        switch (entityType) {
+            case EntityType.player:
                 GetComponent<MeshRenderer>().material.color = Color.white * (currentHealth / maxHealth);
                 break;
-            case EnemyType.enemy:
+            case EntityType.enemy:
                 GetComponent<MeshRenderer>().material.color = Random.ColorHSV();
                 break;
         }
