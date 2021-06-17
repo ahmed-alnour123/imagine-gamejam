@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
         
         crouch();
         Investigate(InvestigateDistance,hit);
-        Rotation();
+       // Rotation();
         basic_movement(speed);
         Run(runSpeed);
         if(isMoving)
