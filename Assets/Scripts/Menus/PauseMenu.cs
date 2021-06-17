@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
 
     public static bool gameIsPaused = false;
     public GameObject pauseMenuUI;
+    public GameObject plauMenuUI;
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
@@ -19,21 +21,25 @@ public class PauseMenu : MonoBehaviour {
 
     public void Resume() {
         pauseMenuUI.SetActive(false);
+        plauMenuUI.SetActive(true);
         Time.timeScale = 1f;
         gameIsPaused = false;
     }
 
     void Pause() {
-        pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
+        pauseMenuUI.SetActive(true);
+        plauMenuUI.SetActive(false);
+
         gameIsPaused = true;
     }
 
     public void LoadMenu() {
-        Debug.Log("Loding menu...");
+        SceneManager.LoadScene("MainMenu");
+
     }
 
     public void QuitGame() {
-        Debug.Log("Quitting game...");
+        Application.Quit();
     }
 }

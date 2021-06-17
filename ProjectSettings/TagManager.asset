@@ -9,6 +9,7 @@ TagManager:
   - Radar
   - Examine
   - PlayerBody
+  - animator
   layers:
   - Default
   - TransparentFX

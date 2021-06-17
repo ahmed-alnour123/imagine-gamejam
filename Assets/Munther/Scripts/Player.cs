@@ -21,8 +21,10 @@ public class Player : MonoBehaviour
     public float InvestigateDistance = 5f;
     public bool isTargeting = false;
     public RaycastHit hit;
+    public Animator animator;
 
 //components and objects
+
     private Rigidbody rb;
     private CapsuleCollider cl;
     private GameObject cameraTarget;
@@ -45,7 +47,6 @@ public class Player : MonoBehaviour
 
         rb = GetComponentInParent<Rigidbody>();
         cl = GameObject.Find("body").GetComponent<CapsuleCollider>();
-
         cameraTarget = GameObject.FindWithTag("Target");
         radar = GameObject.FindWithTag("Radar");
         distanceCalculator = GameObject.FindWithTag("DistanceCalculator");
@@ -56,7 +57,15 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     
-    {Cursor.visible = false;
+    {
+        
+        animator.SetBool("isMoving",isMoving && ! isRunning);
+        animator.SetBool("isRunning",isRunning && !iscrouched);
+        animator.SetBool("isCrawling",iscrouched);
+        animator.SetBool("isRolling",isRolling); 
+        
+        
+        Cursor.visible = false;
         if(!iscrouched) crouchTimer = Time.time;
 // While the player is Rolling he cant change direction or speed;
         if(isRolling && timer + rollingTime >= Time.time){
@@ -66,7 +75,6 @@ public class Player : MonoBehaviour
         } 
         else{
         isRolling = false;
-        
         crouch();
         Investigate(InvestigateDistance,hit);
        // Rotation();
