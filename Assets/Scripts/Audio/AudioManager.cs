@@ -10,29 +10,6 @@ public class AudioManager : MonoBehaviour {
     public Sound[] sounds;
     System.Random random = new System.Random();
 
-    string[] arr = new string[] {
-        "enemyNotice",
-        "pickup",
-        "grunt",
-        "footSteps-1",
-        "footSteps-2",
-        "footSteps-3",
-        "footSteps-4",
-        "footSteps-5",
-        "hit-1",
-        "hit-2",
-        "hit-3",
-        "sword-1",
-        "sword-2",
-        "sword-3",
-        "sword-4",
-        "pig-1",
-        "pig-2",
-        "pig-3",
-        "pig-4",
-        "pig-5",
-    };
-
     private void Awake() {
         audioManager = this;
         Array.ForEach<Sound>(sounds, s => s.Initialize(gameObject.AddComponent<AudioSource>()));
@@ -41,16 +18,6 @@ public class AudioManager : MonoBehaviour {
     void Start() {
         var onAwakeSounds = Array.FindAll<Sound>(sounds, s => s.playOnAwake);
         Array.ForEach<Sound>(onAwakeSounds, s => Play(s.name));
-    }
-
-    int counter = 0;
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.H)) {
-            var sound = arr[counter];
-            Debug.Log("sound " + sound + " is playing");
-            Play(sound);
-            counter++;
-        }
     }
 
     public void Play(string name) {

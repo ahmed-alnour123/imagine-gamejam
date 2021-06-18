@@ -17,6 +17,7 @@ public class Sound {
 
     public AudioSource source;
 
+    /// assigns this sound's values to the AudioSource component
     public void Initialize(AudioSource source) {
         source.volume = volume;
         source.pitch = pitch;
