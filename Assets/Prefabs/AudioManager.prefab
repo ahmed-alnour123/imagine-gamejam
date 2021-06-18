@@ -1,0 +1,186 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2764236125954974263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2764236125954974261}
+  - component: {fileID: 2764236125954974262}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2764236125954974261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2764236125954974263}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2764236125954974262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2764236125954974263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc56fa6a25a93ec429b536dc4a1cc429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: enemyNotice
+    clip: {fileID: 8300000, guid: 195e1f5d59a8ff7499b325b90b289abb, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: pickup
+    clip: {fileID: 8300000, guid: 2ddf3f7e8357f4148b50d07856f5d1d4, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: grunt
+    clip: {fileID: 8300000, guid: 57601c2c283fe994799800bb24c3282c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: footSteps-1
+    clip: {fileID: 8300000, guid: 8f31ebd5e9a69b242884e5c9c96f790c, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: footSteps-2
+    clip: {fileID: 8300000, guid: 26e1df1e71174db4da5f914cdc252226, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: footSteps-3
+    clip: {fileID: 8300000, guid: c6930f5d785f72644a984ec517886145, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: footSteps-4
+    clip: {fileID: 8300000, guid: 49b7662afeb9b624692fb7163cdc9247, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: footSteps-5
+    clip: {fileID: 8300000, guid: 7a82202585e47b24b85b0b43b84af244, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: hit-1
+    clip: {fileID: 8300000, guid: e95c4d7514ba22c42a954c58a8092759, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: hit-2
+    clip: {fileID: 8300000, guid: b508ff2d400fdf44e99c2afffe786238, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: hit-3
+    clip: {fileID: 8300000, guid: 622c32886a78e1f419285f51442877e7, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: pig-1
+    clip: {fileID: 8300000, guid: 497098c77d9633741aef7c3b33cc882a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: pig-2
+    clip: {fileID: 8300000, guid: cbfa17c7c4518ef4392aa9f7dcc45985, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: pig-3
+    clip: {fileID: 8300000, guid: b9720e2352f3679419d5c6b9cb666ee0, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: pig-4
+    clip: {fileID: 8300000, guid: c95da0bc9e60a53459793fe578bdfdee, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: pig-5
+    clip: {fileID: 8300000, guid: 4f0667af1d4704946ba0c70741368dc5, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: sword-1
+    clip: {fileID: 8300000, guid: 5f028839400d2b94c968ff944ab3fd08, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: sword-2
+    clip: {fileID: 8300000, guid: 3898e14c6a5663b41bdd6dc7675ef6c4, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: sword-3
+    clip: {fileID: 8300000, guid: 73585e80b8a91c94a89d6632ec59a1da, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: sword-4
+    clip: {fileID: 8300000, guid: 51e0dbbe0bee17648b588ce2a6d89350, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+    source: {fileID: 0}
