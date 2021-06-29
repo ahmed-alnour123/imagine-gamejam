@@ -17,10 +17,6 @@ public class Player : MonoBehaviour
     public float crouchHight = 1f;
     public float rollingTime = 0.5f;
 
-    [Header("Investigation")]
-    public float InvestigateDistance = 5f;
-    public bool isTargeting = false;
-    public RaycastHit hit;
 
 //components and objects
 
@@ -69,8 +65,6 @@ public class Player : MonoBehaviour
         else{
         isRolling = false;
         crouch();
-        Investigate(InvestigateDistance,hit);
-       // Rotation();
         basic_movement(speed);
         Run(runSpeed);
         if(isMoving)
@@ -97,23 +91,8 @@ if (iscrouched && isRunning && !isRolling && coolDown  <= Time.time)
         isMoving = true;
     }}
 
-    void Rotation(){
-        _lookx = Input.GetAxis("Mouse X");
-        _looky = Input.GetAxis("Mouse Y");
 
-        cameraTarget.transform.rotation *= Quaternion.AngleAxis(5f*_lookx,Vector3.up);
-        
 
-    }
-
-    void Investigate(float InvestigateDistance , RaycastHit hit){
-         if (Physics.Raycast(transform.position, transform.forward, out hit, InvestigateDistance)) 
-         {
-             isTargeting = true;
-             
-             Debug.Log(hit.collider.tag);
-         } else isTargeting = false;
-    }
     
     void crouch(){
         if(Input.GetKeyDown(KeyCode.Space)){

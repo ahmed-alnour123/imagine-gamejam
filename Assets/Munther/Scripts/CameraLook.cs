@@ -13,10 +13,11 @@ public class CameraLook : MonoBehaviour
     public float fieldOfViewIncrement;
     public float cameraRotateXMin;
     public float cameraRotateXMax;
+    public static CameraLook cameraLook;
 
     [Header("Mouse Smoothing")] public float mouseSmooth;
-    
-    
+
+
 
     #endregion
 
@@ -31,29 +32,44 @@ public class CameraLook : MonoBehaviour
     public Transform m_camera;
     private float m_fieldOfView;
 
+    public RaycastHit hit;
     #endregion
 
     #region UNITY_ROUTINES
+    [Header("Investigation")]
+    public float InvestigateDistance = 15f;
+
+    public static GameObject Target;
+    public bool isTargeting = false;
 
     private void Awake()
     {
+        cameraLook = this;
         m_parent = transform.parent;
-        
-      //  if (m_camera != null) m_fieldOfView = m_camera.fieldOfView;
+
         MouseLock();
     }
 
     private void Update()
-    { 
+    {
+        if (Physics.Raycast(m_camera.transform.position,m_camera.transform.forward, out hit, InvestigateDistance))
+        {
+
+            if (hit.collider.tag == "Examine")
+            {
+                Target = hit.collider.gameObject;
+                isTargeting = true;
+            } else{
+                isTargeting = false;
+            }
+        }
         MouseInput();
         RotatePlayY();
         RotateCameraX();
-    //    CameraZoom();
     }
 
     #endregion
 
-    #region HELPER ROUTINES
 
     private void MouseInput()
     {
@@ -64,7 +80,7 @@ public class CameraLook : MonoBehaviour
 
     private void RotatePlayY()
     {
-       m_parent.Rotate(Vector3.up * m_mouseX);
+        m_parent.Rotate(Vector3.up * m_mouseX);
     }
 
     private void RotateCameraX()
@@ -81,34 +97,7 @@ public class CameraLook : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             return;
         }
-        
+
         Cursor.lockState = CursorLockMode.None;
     }
-
-  /*  private void CameraZoom()
-    {
-        if (m_mouseScrollWheel > 0.0f)
-        {
-            if (m_fieldOfView + fieldOfViewIncrement >= cameraFieldOfViewMin &&
-                m_fieldOfView + fieldOfViewIncrement <= cameraFieldOfViewMax)
-            {
-                m_fieldOfView += fieldOfViewIncrement;
-                m_camera.fieldOfView = m_fieldOfView;
-            }
-           
-        }
-
-        if (m_mouseScrollWheel < 0.0f)
-        {
-            if (m_fieldOfView - fieldOfViewIncrement >= cameraFieldOfViewMin &&
-                m_fieldOfView - fieldOfViewIncrement <= cameraFieldOfViewMax)
-            {
-                m_fieldOfView -= fieldOfViewIncrement;
-                m_camera.fieldOfView = m_fieldOfView;
-            }
-        }
-        
-    }*/
-
-    #endregion
 }

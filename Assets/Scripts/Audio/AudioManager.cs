@@ -26,6 +26,7 @@ public class AudioManager : MonoBehaviour {
             Debug.LogWarning("sound " + name + " not found");
             return;
         }
+        
         sound.source.Play();
     }
 

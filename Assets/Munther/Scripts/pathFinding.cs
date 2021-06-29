@@ -34,12 +34,6 @@ public class pathFinding : MonoBehaviour
     void Update()
     {
         chaseCooldown = chaseTimer - Time.time;
-
-        
-
-        
-       
-
         
         if(detected) ChasePlayer();
         else Retreat();
@@ -66,7 +60,7 @@ public class pathFinding : MonoBehaviour
         if(chaseTimer  < Time.time) {
             
             detected = false;
-
+            SetDirection(false);
             if (isToutching < Time.time) { 
                 raydirection = transform.forward; }
 
@@ -77,12 +71,13 @@ public class pathFinding : MonoBehaviour
         
     }
 
-public void SetDirection(){
-        raydirection = (player.transform.position - transform.position);
-    }
+public void SetDirection(bool b){
+    
+        if(b) raydirection = (player.transform.position - transform.position) ;
+        else raydirection = transform.forward;
+        }
 
-    void Retreat() {         
-           Debug.Log("ssss stage");
+        void Retreat() {
 
         if (transform.position.x == patrollingEnd.x && transform.position.z == patrollingEnd.z) patrol = true;
         if (transform.position.x == patrollingStart.x && transform.position.z == patrollingStart.z) patrol = false;
