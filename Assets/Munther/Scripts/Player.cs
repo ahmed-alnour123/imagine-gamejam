@@ -40,10 +40,12 @@ public class Player : MonoBehaviour
     private bool wascrouching = false;
     public static Player player;
     // Start is called before the first frame update
-    void Start()
-    {
+    private void Awake() {
         player = this;
 
+    }
+    void Start()
+    {
         rb = GetComponentInParent<Rigidbody>();
         cl = GetComponentInChildren<CapsuleCollider>();
         cameraTarget = transform.GetChild(0).transform;
