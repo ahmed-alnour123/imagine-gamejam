@@ -7,10 +7,12 @@ public class coneMesh : MonoBehaviour {
  public int subdivisions = 10;
  public float radius = 1f;
  public float height = 2f;
+    private Vector3 ray;
 
- public static GameObject player;
+    public static GameObject player;
  void Start () {
-  GetComponent<MeshCollider>().sharedMesh = Create(subdivisions, radius, height);
+        ray = pathFinding.raydirection;
+        GetComponent<MeshCollider>().sharedMesh = Create(subdivisions, radius, height);
 
   GetComponent<MeshFilter>().sharedMesh = Create(subdivisions, radius, height);
  }
@@ -73,9 +75,9 @@ public class coneMesh : MonoBehaviour {
 
 private void OnTriggerStay(Collider other) {
       if(other.gameObject.tag == "PlayerBody" ){
-        Debug.Log("first stage");
         player = other.gameObject;
-        GetComponentInParent<pathFinding>().isToutching = Time.time +0.5f;
+            GetComponentInParent<pathFinding>().SetDirection();
+            GetComponentInParent<pathFinding>().isToutching = Time.time +0.5f;
     }
 
 }

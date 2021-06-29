@@ -21,15 +21,12 @@ public class Player : MonoBehaviour
     public float InvestigateDistance = 5f;
     public bool isTargeting = false;
     public RaycastHit hit;
-    public Animator animator;
 
 //components and objects
 
     private Rigidbody rb;
     private CapsuleCollider cl;
-    private GameObject cameraTarget;
-    private GameObject radar;
-    private GameObject distanceCalculator;
+    private Transform cameraTarget;
 
 //Local vars
     private float _lookx = 0;
@@ -41,15 +38,15 @@ public class Player : MonoBehaviour
     private float coolDown;
     private float crouchTimer;
     private bool wascrouching = false;
-// Start is called before the first frame update
+    public static Player player;
+    // Start is called before the first frame update
     void Start()
-    {   
+    {
+        player = this;
 
         rb = GetComponentInParent<Rigidbody>();
-        cl = GameObject.Find("body").GetComponent<CapsuleCollider>();
-        cameraTarget = GameObject.FindWithTag("Target");
-        radar = GameObject.FindWithTag("Radar");
-        distanceCalculator = GameObject.FindWithTag("DistanceCalculator");
+        cl = GetComponentInChildren<CapsuleCollider>();
+        cameraTarget = transform.GetChild(0).transform;
         defaultHight = cl.height;
         defaultcenter = cl.center.y;
     }
@@ -58,12 +55,6 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     
     {
-        
-        animator.SetBool("isMoving",isMoving && ! isRunning);
-        animator.SetBool("isRunning",isRunning && !iscrouched);
-        animator.SetBool("isCrawling",iscrouched);
-        animator.SetBool("isRolling",isRolling); 
-        
         
         Cursor.visible = false;
         if(!iscrouched) crouchTimer = Time.time;

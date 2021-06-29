@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class pathFinding : MonoBehaviour
 {
     private NavMeshAgent agent;
-    private GameObject player;
+    private Player player;
     public float InvestigateDistance = 5f;
     public RaycastHit hit;
     public bool detected = false;
@@ -19,11 +19,12 @@ public class pathFinding : MonoBehaviour
     private Vector3 patrollingStart;
     public Transform defaultpatrollingEnd;
     private Vector3 patrollingEnd;
+    
     private bool patrol;
-    private   Vector3 raydirection;
+    public static Vector3 raydirection;
 
     void Start()
-    {
+    {   player = Player.player;
         agent = GetComponent<NavMeshAgent>();
         patrollingEnd = defaultpatrollingEnd.position;
         patrollingStart = defaultpatrollingStart.position;
@@ -34,22 +35,19 @@ public class pathFinding : MonoBehaviour
     {
         chaseCooldown = chaseTimer - Time.time;
 
-        try{        player = coneMesh.player;
+        
 
-            raydirection =  (player.transform.position - transform.position).normalized;
-        } catch(System.NullReferenceException ex){
-            Debug.Log(ex.Message);
+        
+       
 
-        }
+        
         if(detected) ChasePlayer();
         else Retreat();
         if (Physics.Raycast(transform.position,raydirection , out hit,InvestigateDistance)){
        
             Debug.Log(hit.collider.name);
-        }
-        if(hit.collider.tag == "PlayerBody"){
+            if(hit.collider.tag == "PlayerBody"){
             
-            Debug.Log("second stage");
 
 
             detected = true;
@@ -58,6 +56,8 @@ public class pathFinding : MonoBehaviour
             
         
         }
+        }
+        
     
     
 
@@ -66,16 +66,20 @@ public class pathFinding : MonoBehaviour
         if(chaseTimer  < Time.time) {
             
             detected = false;
-            
-            if(isToutching < Time.time)  coneMesh.player = null;
 
-            }
+            if (isToutching < Time.time) { 
+                raydirection = transform.forward; }
+
+        }
 
         agent.SetDestination(player.transform.position);
 
         
     }
 
+public void SetDirection(){
+        raydirection = (player.transform.position - transform.position);
+    }
 
     void Retreat() {         
            Debug.Log("ssss stage");
