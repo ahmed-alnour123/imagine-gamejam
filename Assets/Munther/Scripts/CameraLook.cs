@@ -39,7 +39,7 @@ public class CameraLook : MonoBehaviour
     [Header("Investigation")]
     public float InvestigateDistance = 15f;
 
-    public static GameObject Target;
+    public GameObject target;
     public bool isTargeting = false;
 
     private void Awake()
@@ -57,7 +57,7 @@ public class CameraLook : MonoBehaviour
 
             if (hit.collider.tag == "Examine")
             {
-                Target = hit.collider.gameObject;
+                target = hit.collider.gameObject;
                 isTargeting = true;
             } else{
                 isTargeting = false;

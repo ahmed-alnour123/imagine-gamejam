@@ -4,12 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 public class EventsManager : MonoBehaviour
 {
-    private RaycastHit target;
+    public static EventsManager eventsManager;
+    private GameObject target;
     public GameObject examineText;
     private CameraLook cameraLook;
     private Player player;
+    public Text dialogBox;
+    public bool isTalking = false;
     public float noise = 0;
     // Start is called before the first frame update
+private void Awake() {
+        eventsManager = this;
+    }
     void Start()
     {
         cameraLook = CameraLook.cameraLook;
@@ -29,11 +35,19 @@ public class EventsManager : MonoBehaviour
 
         if (cameraLook.isTargeting)
         {
+            target = cameraLook.target;
 
             examineText.SetActive(true);
+            if(Input.GetKeyDown(KeyCode.E)){
+                Time.timeScale = 0;
+                isTalking = true;
+                
+            }
         }else{
         examineText.SetActive(false);
         }
         
     }
+  
+    
 }
