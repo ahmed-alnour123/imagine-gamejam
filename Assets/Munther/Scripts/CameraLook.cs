@@ -62,6 +62,9 @@ public class CameraLook : MonoBehaviour
             } else{
                 isTargeting = false;
             }
+        } else{
+            isTargeting = false;
+            
         }
         MouseInput();
         RotatePlayY();

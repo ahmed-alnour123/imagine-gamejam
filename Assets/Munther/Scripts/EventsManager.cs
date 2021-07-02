@@ -39,7 +39,6 @@ private void Awake() {
 
             examineText.SetActive(true);
             if(Input.GetKeyDown(KeyCode.E)){
-                Time.timeScale = 0;
                 isTalking = true;
                 
             }
