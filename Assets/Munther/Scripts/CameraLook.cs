@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class CameraLook : MonoBehaviour
-{
+public class CameraLook : MonoBehaviour {
     #region PUBLIC FIELDS
 
     [Header("Mouse Lock")] public bool isMouseLocked;
@@ -42,24 +41,20 @@ public class CameraLook : MonoBehaviour
     public GameObject target;
     public bool isTargeting = false;
 
-    private void Awake()
-    {
+    private void Awake() {
         cameraLook = this;
         m_parent = transform.parent;
 
         MouseLock();
     }
 
-    private void Update()
-    {
-        if (Physics.Raycast(m_camera.transform.position,m_camera.transform.forward, out hit, InvestigateDistance))
-        {
+    private void Update() {
+        if (Physics.Raycast(m_camera.transform.position, m_camera.transform.forward, out hit, InvestigateDistance)) {
 
-            if (hit.collider.tag == "Examine")
-            {
+            if (hit.collider.tag == "Examine") {
                 target = hit.collider.gameObject;
                 isTargeting = true;
-            } else{
+            } else {
                 isTargeting = false;
             }
         } else{
@@ -74,33 +69,29 @@ public class CameraLook : MonoBehaviour
     #endregion
 
 
-    private void MouseInput()
-    {
+    private void MouseInput() {
         m_mouseX = Input.GetAxisRaw("Mouse X") * mouseSmooth;
         m_mouseY = Input.GetAxisRaw("Mouse Y") * mouseSmooth;
         m_mouseScrollWheel = Input.GetAxisRaw("Mouse ScrollWheel");
     }
 
-    private void RotatePlayY()
-    {
+    private void RotatePlayY() {
         m_parent.Rotate(Vector3.up * m_mouseX);
     }
 
-    private void RotateCameraX()
-    {
+    private void RotateCameraX() {
         m_rotateX += m_mouseY;
         m_rotateX = Mathf.Clamp(m_rotateX, cameraRotateXMin, cameraRotateXMax);
         m_camera.transform.localRotation = Quaternion.Euler(-m_rotateX, 0f, 0f);
     }
 
-    private void MouseLock()
-    {
-        if (isMouseLocked)
-        {
+    private void MouseLock() {
+        if (isMouseLocked) {
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             return;
         }
-
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class EventsManager : MonoBehaviour
-{
+public class EventsManager : MonoBehaviour {
     public static EventsManager eventsManager;
     private GameObject target;
     public GameObject examineText;
@@ -13,40 +12,34 @@ public class EventsManager : MonoBehaviour
     public bool isTalking = false;
     public float noise = 0;
     // Start is called before the first frame update
-private void Awake() {
+    private void Awake() {
         eventsManager = this;
     }
-    void Start()
-    {
+    void Start() {
         cameraLook = CameraLook.cameraLook;
 
-    player = Player.player;
+        player = Player.player;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         noise -= Time.deltaTime * 5f;
-        if(player.isMoving && !player.iscrouched) noise += Time.deltaTime * 10;
-        if(player.isRunning) noise += Time.deltaTime * 20;
+        if (player.isMoving && !player.iscrouched) noise += Time.deltaTime * 10;
+        if (player.isRunning) noise += Time.deltaTime * 20;
 
-        if(noise > 100) noise = 100;
-        if(noise < 0) noise = 0;
+        if (noise > 100) noise = 100;
+        if (noise < 0) noise = 0;
 
-        if (cameraLook.isTargeting)
-        {
+        if (cameraLook.isTargeting) {
             target = cameraLook.target;
 
             examineText.SetActive(true);
-            if(Input.GetKeyDown(KeyCode.E)){
+            if (Input.GetKeyDown(KeyCode.E)) {
                 isTalking = true;
-                
             }
-        }else{
-        examineText.SetActive(false);
+        } else {
+            examineText.SetActive(false);
         }
-        
     }
-  
-    
+
+
 }
