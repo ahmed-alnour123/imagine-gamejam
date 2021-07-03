@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
-{
- 
+public class Player : MonoBehaviour {
 
     [Header("Movement")]
     public bool iscrouched = false;
@@ -22,13 +20,12 @@ public class Player : MonoBehaviour
     public bool isTargeting = false;
     public RaycastHit hit;
 
-//components and objects
-
+    //components and objects
     private Rigidbody rb;
     private CapsuleCollider cl;
     private Transform cameraTarget;
 
-//Local vars
+    //Local vars
     private float _lookx = 0;
     private float _looky = 0;
     float defaultHight;
@@ -39,13 +36,12 @@ public class Player : MonoBehaviour
     private float crouchTimer;
     private bool wascrouching = false;
     public static Player player;
-    // Start is called before the first frame update
+
     private void Awake() {
         player = this;
-
     }
-    void Start()
-    {
+
+    void Start() {
         rb = GetComponentInParent<Rigidbody>();
         cl = GetComponentInChildren<CapsuleCollider>();
         cameraTarget = transform.GetChild(0).transform;
@@ -53,103 +49,99 @@ public class Player : MonoBehaviour
         defaultcenter = cl.center.y;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    
-    {
-        
-        Cursor.visible = false;
-        if(!iscrouched) crouchTimer = Time.time;
-// While the player is Rolling he cant change direction or speed;
-        if(isRolling && timer + rollingTime >= Time.time){
+    void FixedUpdate() {
+        if (!iscrouched) crouchTimer = Time.time;
+        // While the player is Rolling he cant change direction or speed;
+        if (isRolling && timer + rollingTime >= Time.time) {
             rb.AddForce(100 * direction);
             iscrouched = wascrouching;
             coolDown = Time.time + rollingTime;
-        } 
-        else{
-        isRolling = false;
-        crouch();
-        Investigate(InvestigateDistance,hit);
-       // Rotation();
-        basic_movement(speed);
-        Run(runSpeed);
-        if(isMoving)
-        transform.rotation = cameraTarget.transform.rotation;
-        
-    }
+        } else {
+            isRolling = false;
+            crouch();
+            Investigate(InvestigateDistance, hit);
+            // Rotation();
+            basic_movement(speed);
+            Run(runSpeed);
+            if (isMoving)
+                transform.rotation = cameraTarget.transform.rotation;
+        }
 
-if (iscrouched && isRunning && !isRolling && coolDown  <= Time.time)
-        {
+        if (iscrouched && isRunning && !isRolling && coolDown <= Time.time) {
             Roll();
-            
         }
     }
 
-    void basic_movement(float speed){
-        if(!isRunning){
-        if(rb.velocity.magnitude >= speed)
-        rb.velocity = rb.velocity.normalized * speed;
-        rb.AddForce(100 * transform.forward * Input.GetAxisRaw("Vertical"));
-        rb.AddForce(100 * transform.right * Input.GetAxisRaw("Horizontal"));
-        if(Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
-        isMoving = false;
-        else 
-        isMoving = true;
-    }}
+    public Animator animator;
 
-    void Rotation(){
+    void Update() {
+        animator.SetBool("isMoving", isMoving);
+        animator.SetBool("isRunning", isRunning);
+        animator.SetBool("isCrouching", iscrouched);
+        animator.SetBool("isRolling", isRolling);
+    }
+
+    void basic_movement(float speed) {
+        if (!isRunning) {
+            if (rb.velocity.magnitude >= speed)
+                rb.velocity = rb.velocity.normalized * speed;
+            rb.AddForce(100 * transform.forward * Input.GetAxisRaw("Vertical"));
+            rb.AddForce(100 * transform.right * Input.GetAxisRaw("Horizontal"));
+            if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
+                isMoving = false;
+            else
+                isMoving = true;
+        }
+    }
+
+    void Rotation() {
         _lookx = Input.GetAxis("Mouse X");
         _looky = Input.GetAxis("Mouse Y");
 
-        cameraTarget.transform.rotation *= Quaternion.AngleAxis(5f*_lookx,Vector3.up);
-        
-
+        cameraTarget.transform.rotation *= Quaternion.AngleAxis(5f * _lookx, Vector3.up);
     }
 
-    void Investigate(float InvestigateDistance , RaycastHit hit){
-         if (Physics.Raycast(transform.position, transform.forward, out hit, InvestigateDistance)) 
-         {
-             isTargeting = true;
-             
-             Debug.Log(hit.collider.tag);
-         } else isTargeting = false;
+    void Investigate(float InvestigateDistance, RaycastHit hit) {
+        if (Physics.Raycast(transform.position, transform.forward, out hit, InvestigateDistance)) {
+            isTargeting = true;
+        } else isTargeting = false;
     }
-    
-    void crouch(){
-        if(Input.GetKeyDown(KeyCode.Space)){
-            iscrouched = !iscrouched;     
+
+    void crouch() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            iscrouched = !iscrouched;
         }
-        
-        if(iscrouched) {
-            cl.center = new Vector3(0,defaultcenter-crouchHight/2,0);
+        if (iscrouched) {
+            cl.center = new Vector3(0, defaultcenter - crouchHight / 2, 0);
             cl.height = defaultHight - crouchHight;
-        } else{
-            cl.center = new Vector3(0,defaultcenter,0);
+        } else {
+            cl.center = new Vector3(0, defaultcenter, 0);
             cl.height = defaultHight;
         }
     }
-    void Run(float runSpeed){
-        if(isMoving && Input.GetKey(KeyCode.LeftShift)){
-                    isRunning = true;
 
-        if(rb.velocity.magnitude >= runSpeed)
-        rb.velocity = rb.velocity.normalized * runSpeed;
-        rb.AddForce(100 * transform.forward * Input.GetAxisRaw("Vertical"));
-        rb.AddForce(100 * transform.right * Input.GetAxisRaw("Horizontal"));
+    void Run(float runSpeed) {
+        if (isMoving && Input.GetKey(KeyCode.LeftShift)) {
+            isRunning = true;
+            if (rb.velocity.magnitude >= runSpeed)
+                rb.velocity = rb.velocity.normalized * runSpeed;
+            rb.AddForce(100 * transform.forward * Input.GetAxisRaw("Vertical"));
+            rb.AddForce(100 * transform.right * Input.GetAxisRaw("Horizontal"));
         } else isRunning = false;
-        
-        if(Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0){
-        isMoving = false;}
-        else {
-        isMoving = true;}
+        if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) {
+            isMoving = false;
+        } else {
+            isMoving = true;
+        }
     }
-    void Roll(){
-        wascrouching = !(crouchTimer +0.2 > Time.time); 
+
+    void Roll() {
+        animator.SetTrigger("isRolling");
+        wascrouching = !(crouchTimer + 0.2 > Time.time);
         isRolling = true;
         isRunning = false;
         isMoving = false;
         timer = Time.time;
         direction = transform.forward;
     }
-
 }
