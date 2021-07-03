@@ -31,6 +31,7 @@ public class pathFinding : MonoBehaviour {
 
     void Update() {
         chaseCooldown = chaseTimer - Time.time;
+
         if (detected) ChasePlayer();
         else Retreat();
         if (Physics.Raycast(transform.position, raydirection, out hit, InvestigateDistance)) {
@@ -51,11 +52,14 @@ public class pathFinding : MonoBehaviour {
         agent.SetDestination(player.transform.position);
     }
 
-    public void SetDirection() {
-        raydirection = (player.transform.position - transform.position);
+    public void SetDirection(bool b) {
+
+        if (b) raydirection = (player.transform.position - transform.position);
+        else raydirection = transform.forward;
     }
 
     void Retreat() {
+
         if (transform.position.x == patrollingEnd.x && transform.position.z == patrollingEnd.z) patrol = true;
         if (transform.position.x == patrollingStart.x && transform.position.z == patrollingStart.z) patrol = false;
         if (patrol) agent.SetDestination(patrollingStart);

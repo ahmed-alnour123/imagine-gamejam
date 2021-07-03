@@ -15,10 +15,6 @@ public class Player : MonoBehaviour {
     public float crouchHight = 1f;
     public float rollingTime = 0.5f;
 
-    [Header("Investigation")]
-    public float InvestigateDistance = 5f;
-    public bool isTargeting = false;
-    public RaycastHit hit;
 
     //components and objects
     private Rigidbody rb;
@@ -36,6 +32,7 @@ public class Player : MonoBehaviour {
     private float crouchTimer;
     private bool wascrouching = false;
     public static Player player;
+    public bool isTargeting;
 
     private void Awake() {
         player = this;
@@ -59,12 +56,11 @@ public class Player : MonoBehaviour {
         } else {
             isRolling = false;
             crouch();
-            Investigate(InvestigateDistance, hit);
-            // Rotation();
             basic_movement(speed);
             Run(runSpeed);
             if (isMoving)
                 transform.rotation = cameraTarget.transform.rotation;
+
         }
 
         if (iscrouched && isRunning && !isRolling && coolDown <= Time.time) {
