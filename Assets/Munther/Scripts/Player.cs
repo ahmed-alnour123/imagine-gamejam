@@ -22,8 +22,6 @@ public class Player : MonoBehaviour {
     private Transform cameraTarget;
 
     //Local vars
-    private float _lookx = 0;
-    private float _looky = 0;
     float defaultHight;
     float defaultcenter;
     private float timer;
@@ -41,7 +39,7 @@ public class Player : MonoBehaviour {
     void Start() {
         rb = GetComponentInParent<Rigidbody>();
         cl = GetComponentInChildren<CapsuleCollider>();
-        cameraTarget = CameraLook.cameraLook.gameObject.transform;
+        cameraTarget = CameraLook.cameraLook.gameObject.transform.parent;
         defaultHight = cl.height;
         defaultcenter = cl.center.y;
     }
@@ -90,12 +88,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    void Rotation() {
-        _lookx = Input.GetAxis("Mouse X");
-        _looky = Input.GetAxis("Mouse Y");
-
-        cameraTarget.transform.rotation *= Quaternion.AngleAxis(5f * _lookx, Vector3.up);
-    }
+    
 
     void Investigate(float InvestigateDistance, RaycastHit hit) {
         if (Physics.Raycast(transform.position, transform.forward, out hit, InvestigateDistance)) {
