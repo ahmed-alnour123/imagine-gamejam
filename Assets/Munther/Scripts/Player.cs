@@ -41,7 +41,7 @@ public class Player : MonoBehaviour {
     void Start() {
         rb = GetComponentInParent<Rigidbody>();
         cl = GetComponentInChildren<CapsuleCollider>();
-        cameraTarget = transform.GetChild(0).transform;
+        cameraTarget = CameraLook.cameraLook.gameObject.transform;
         defaultHight = cl.height;
         defaultcenter = cl.center.y;
     }
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour {
         } else {
             isRolling = false;
             crouch();
-            basic_movement(speed);
+            BasicMovement(speed);
             Run(runSpeed);
             if (isMoving)
                 transform.rotation = cameraTarget.transform.rotation;
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour {
         animator.SetBool("isRolling", isRolling);
     }
 
-    void basic_movement(float speed) {
+    void BasicMovement(float speed) {
         if (!isRunning) {
             if (rb.velocity.magnitude >= speed)
                 rb.velocity = rb.velocity.normalized * speed;

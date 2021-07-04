@@ -69,7 +69,7 @@ public class ConeMesh : MonoBehaviour {
     private void OnTriggerStay(Collider other) {
         if (other.gameObject.tag == "PlayerBody") {
             player = other.gameObject;
-            GetComponentInParent<pathFinding>().SetDirection();
+            GetComponentInParent<pathFinding>().SetDirection(true);
             GetComponentInParent<pathFinding>().isToutching = Time.time + 0.5f;
         }
     }
