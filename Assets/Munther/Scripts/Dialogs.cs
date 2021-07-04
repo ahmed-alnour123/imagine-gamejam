@@ -12,6 +12,7 @@ public class Dialogs : MonoBehaviour
     public int index;
     public bool isisTalking = false;
     private bool gameIsPaused;
+    private bool done = true;
 
     private void Start()
     {
@@ -40,7 +41,7 @@ public class Dialogs : MonoBehaviour
     }
     IEnumerator Type(int _index)
     {
-
+         done = false;
         dialogBox.text = "";
 
         foreach (char letter in sentences[_index].ToCharArray())
@@ -50,14 +51,14 @@ public class Dialogs : MonoBehaviour
 
 
         }
+        done = true;
     }
 
     void NextDialog()
     {
-        index++;
 
 
-        if (index == sentences.Length + 1)
+        if (index == sentences.Length)
         {
             eventsmanager.isTalking = false;
             index = 0;
@@ -67,8 +68,9 @@ public class Dialogs : MonoBehaviour
 
 
         }
-        else
-        {
+        else if(done)
+        {        index++;
+
             StartCoroutine(Type(index - 1));
         }
     }

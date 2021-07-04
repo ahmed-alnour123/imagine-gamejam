@@ -22,6 +22,7 @@ public class Player : MonoBehaviour {
     private Transform cameraTarget;
 
     //Local vars
+    public int hp = 5;
     float defaultHight;
     float defaultcenter;
     private float timer;
@@ -39,7 +40,7 @@ public class Player : MonoBehaviour {
     void Start() {
         rb = GetComponentInParent<Rigidbody>();
         cl = GetComponentInChildren<CapsuleCollider>();
-        cameraTarget = CameraLook.cameraLook.gameObject.transform.parent;
+        cameraTarget = CameraLook.cameraLook.transform.parent;
         defaultHight = cl.height;
         defaultcenter = cl.center.y;
     }
