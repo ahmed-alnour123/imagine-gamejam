@@ -23,8 +23,7 @@ public class Player : MonoBehaviour, IHittable {
     private Animator animator;
 
     //Local vars
-    private float _lookx = 0;
-    private float _looky = 0;
+    public int hp = 5;
     float defaultHight;
     float defaultcenter;
     private float timer;
@@ -43,7 +42,7 @@ public class Player : MonoBehaviour, IHittable {
         rb = GetComponentInParent<Rigidbody>();
         cl = GetComponentInChildren<CapsuleCollider>();
         animator = GetComponentInChildren<Animator>();
-        cameraTarget = CameraLook.cameraLook.gameObject.transform;
+        cameraTarget = CameraLook.cameraLook.transform.parent;
         defaultHight = cl.height;
         defaultcenter = cl.center.y;
     }
@@ -90,12 +89,7 @@ public class Player : MonoBehaviour, IHittable {
         }
     }
 
-    void Rotation() {
-        _lookx = Input.GetAxis("Mouse X");
-        _looky = Input.GetAxis("Mouse Y");
 
-        cameraTarget.transform.rotation *= Quaternion.AngleAxis(5f * _lookx, Vector3.up);
-    }
 
     void Investigate(float InvestigateDistance, RaycastHit hit) {
         if (Physics.Raycast(transform.position, transform.forward, out hit, InvestigateDistance)) {
