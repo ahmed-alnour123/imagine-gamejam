@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, IHittable {
 
     [Header("Movement")]
     public bool iscrouched = false;
@@ -140,4 +140,6 @@ public class Player : MonoBehaviour {
         timer = Time.time;
         direction = transform.forward;
     }
+
+    public void GetHit() { }
 }

@@ -17,8 +17,6 @@ public class ConeMesh : MonoBehaviour {
         GetComponent<MeshFilter>().sharedMesh = Create(subdivisions, radius, height);
     }
 
-    float chaseTimer;
-
     void Update() {
 
     }

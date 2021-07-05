@@ -28,7 +28,7 @@ public class CameraLook : MonoBehaviour {
     private float m_rotateX;
     private float m_mouseScrollWheel;
     private Transform m_parent;
-    public Transform m_camera;
+    private Transform m_camera;
     private float m_fieldOfView;
 
     public RaycastHit hit;
