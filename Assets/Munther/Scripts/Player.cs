@@ -20,6 +20,7 @@ public class Player : MonoBehaviour {
     private Rigidbody rb;
     private CapsuleCollider cl;
     private Transform cameraTarget;
+    private Animator animator;
 
     //Local vars
     private float _lookx = 0;
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour {
     void Start() {
         rb = GetComponentInParent<Rigidbody>();
         cl = GetComponentInChildren<CapsuleCollider>();
+        animator = GetComponentInChildren<Animator>();
         cameraTarget = CameraLook.cameraLook.gameObject.transform;
         defaultHight = cl.height;
         defaultcenter = cl.center.y;
@@ -67,8 +69,6 @@ public class Player : MonoBehaviour {
             Roll();
         }
     }
-
-    public Animator animator;
 
     void Update() {
         animator.SetBool("isMoving", isMoving);

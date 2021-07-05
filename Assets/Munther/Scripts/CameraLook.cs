@@ -44,6 +44,7 @@ public class CameraLook : MonoBehaviour {
     private void Awake() {
         cameraLook = this;
         m_parent = transform.parent;
+        m_camera = Camera.main.transform;
 
         MouseLock();
     }
@@ -57,9 +58,9 @@ public class CameraLook : MonoBehaviour {
             } else {
                 isTargeting = false;
             }
-        } else{
+        } else {
             isTargeting = false;
-            
+
         }
         MouseInput();
         RotatePlayY();
@@ -87,11 +88,13 @@ public class CameraLook : MonoBehaviour {
 
     private void MouseLock() {
         if (isMouseLocked) {
+            Cursor.lockState = CursorLockMode.Confined;
+#if UNITY_EDITOR // to fix our linux and unity problem
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+#endif
             return;
         }
         Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 }
