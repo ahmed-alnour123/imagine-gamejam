@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class Boar : MonoBehaviour {
+public class Boar : MonoBehaviour, IHittable {
     private Rigidbody rb;
     private NavMeshAgent agent;
     private pathFinding pathfinding;
@@ -22,7 +22,7 @@ public class Boar : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         pathfinding = GetComponent<pathFinding>();
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.FindWithTag("Player");
+        player = Player.player.gameObject;
     }
 
     void Update() {
@@ -54,4 +54,6 @@ public class Boar : MonoBehaviour {
             justJumped = true;
         }
     }
+
+    public void GetHit() { }
 }

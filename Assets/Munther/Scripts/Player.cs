@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour /* , IHittable*/ {
 
     [Header("Movement")]
     public bool iscrouched = false;
@@ -22,6 +22,7 @@ public class Player : MonoBehaviour {
     private Transform cameraTarget;
     public static Player player;
     private AudioManager audioManager;
+    private Animator animator;
 
     //Local vars
     public float enemyFreeze = 1;
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour {
         audioManager = AudioManager.audioManager;
         rb = GetComponentInParent<Rigidbody>();
         cl = GetComponentInChildren<CapsuleCollider>();
+        animator = GetComponentInChildren<Animator>();
         cameraTarget = CameraLook.cameraLook.transform.parent;
         defaultHight = cl.height;
         defaultcenter = cl.center.y;
@@ -81,8 +83,6 @@ public class Player : MonoBehaviour {
 
 
     }
-
-    public Animator animator;
 
     void Update() {
         if (hitTimer < Time.time) {
@@ -177,4 +177,6 @@ public class Player : MonoBehaviour {
         yield return 0;
 
     }
+    // I commented IHittable out.
+    public void GetHit() { }
 }

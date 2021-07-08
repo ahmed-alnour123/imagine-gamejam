@@ -62,10 +62,14 @@ public class pathFinding : MonoBehaviour {
     }
 
     void Retreat() {
-
         if (transform.position.x == patrollingEnd.x && transform.position.z == patrollingEnd.z) patrol = true;
         if (transform.position.x == patrollingStart.x && transform.position.z == patrollingStart.z) patrol = false;
         if (patrol) agent.SetDestination(patrollingStart);
         else agent.SetDestination(patrollingEnd);
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, InvestigateDistance);
     }
 }
