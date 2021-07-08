@@ -44,7 +44,7 @@ public class CameraLook : MonoBehaviour {
     private void Awake() {
         cameraLook = this;
         m_parent = transform.parent;
-        m_camera = Camera.main.transform;
+        m_camera = transform;
 
         MouseLock();
     }

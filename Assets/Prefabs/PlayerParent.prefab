@@ -678,8 +678,8 @@ GameObject:
   - component: {fileID: 4175938657030839957}
   - component: {fileID: 4175938657030839958}
   - component: {fileID: 4175938657030839959}
-  m_Layer: 0
-  m_Name: Cube
+  m_Layer: 2
+  m_Name: AttackRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
