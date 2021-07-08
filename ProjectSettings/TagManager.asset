@@ -10,6 +10,7 @@ TagManager:
   - Examine
   - PlayerBody
   - animator
+  - Enemy
   layers:
   - Default
   - TransparentFX

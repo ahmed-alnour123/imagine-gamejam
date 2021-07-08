@@ -20,8 +20,14 @@ public class Player : MonoBehaviour {
     private Rigidbody rb;
     private CapsuleCollider cl;
     private Transform cameraTarget;
+    public static Player player;
+    private AudioManager audioManager;
 
     //Local vars
+    public float enemyFreeze = 1;
+    public bool justAttacked;
+    public float hitCooldown = 2;
+    public int defaultHP = 5;
     public int hp = 5;
     float defaultHight;
     float defaultcenter;
@@ -30,14 +36,20 @@ public class Player : MonoBehaviour {
     private float coolDown;
     private float crouchTimer;
     private bool wascrouching = false;
-    public static Player player;
     public bool isTargeting;
+    public float attackCooldown = 0.5f;
+    [HideInInspector]
+    public float attackTimer;
+    public float hitTimer;
+
 
     private void Awake() {
+
         player = this;
     }
 
     void Start() {
+        audioManager = AudioManager.audioManager;
         rb = GetComponentInParent<Rigidbody>();
         cl = GetComponentInChildren<CapsuleCollider>();
         cameraTarget = CameraLook.cameraLook.transform.parent;
@@ -65,11 +77,19 @@ public class Player : MonoBehaviour {
         if (iscrouched && isRunning && !isRolling && coolDown <= Time.time) {
             Roll();
         }
+
+
+
     }
 
     public Animator animator;
 
     void Update() {
+        if (hitTimer < Time.time) {
+            justAttacked = false;
+        } else {
+            justAttacked = true;
+        }
         animator.SetBool("isMoving", isMoving);
         animator.SetBool("isRunning", isRunning);
         animator.SetBool("isCrouching", iscrouched);
@@ -79,7 +99,7 @@ public class Player : MonoBehaviour {
     void BasicMovement(float speed) {
         if (!isRunning) {
             if (rb.velocity.magnitude >= speed)
-                rb.velocity = rb.velocity.normalized * speed;
+                rb.velocity = rb.velocity.normalized * speed + new Vector3(0, 9.8f, 0);
             rb.AddForce(100 * transform.forward * Input.GetAxisRaw("Vertical"));
             rb.AddForce(100 * transform.right * Input.GetAxisRaw("Horizontal"));
             if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
@@ -89,7 +109,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    
+
 
     void Investigate(float InvestigateDistance, RaycastHit hit) {
         if (Physics.Raycast(transform.position, transform.forward, out hit, InvestigateDistance)) {
@@ -133,5 +153,28 @@ public class Player : MonoBehaviour {
         isMoving = false;
         timer = Time.time;
         direction = transform.forward;
+    }
+
+    public void PlayerAttack(GameObject target) {
+        player.transform.rotation = cameraTarget.transform.rotation;
+        Debug.Log(target.tag);
+        if (target.tag == "Enemy") {
+
+            target.GetComponentInParent<pathFinding>().hp--;
+            target.GetComponentInParent<pathFinding>().agent.speed = 0;
+
+            StartCoroutine(FreezeFor(enemyFreeze, target));
+
+        }
+        attackTimer = Time.time + attackCooldown;
+        audioManager.Play(Sounds.swordSwing);
+        //audioManager.Play(Sounds.hit);
+    }
+    IEnumerator FreezeFor(float _freezeSeconds, GameObject target) {
+
+        new WaitForSeconds(_freezeSeconds);
+        target.GetComponentInParent<pathFinding>().agent.speed = 5;
+        yield return 0;
+
     }
 }
