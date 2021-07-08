@@ -99,7 +99,7 @@ public class Player : MonoBehaviour /* , IHittable*/ {
     void BasicMovement(float speed) {
         if (!isRunning) {
             if (rb.velocity.magnitude >= speed)
-                rb.velocity = rb.velocity.normalized * speed + new Vector3(0, -9.8f, 0);
+                rb.velocity = rb.velocity.normalized * speed + new Vector3(0,rb.velocity.y, 0);
             rb.AddForce(100 * transform.forward * Input.GetAxisRaw("Vertical"));
             rb.AddForce(100 * transform.right * Input.GetAxisRaw("Horizontal"));
             if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0)
@@ -134,7 +134,7 @@ public class Player : MonoBehaviour /* , IHittable*/ {
         if (isMoving && Input.GetKey(KeyCode.LeftShift)) {
             isRunning = true;
             if (rb.velocity.magnitude >= runSpeed)
-                rb.velocity = rb.velocity.normalized * runSpeed;
+                rb.velocity = rb.velocity.normalized * runSpeed + new Vector3(0, rb.velocity.y, 0);
             rb.AddForce(100 * transform.forward * Input.GetAxisRaw("Vertical"));
             rb.AddForce(100 * transform.right * Input.GetAxisRaw("Horizontal"));
         } else isRunning = false;
