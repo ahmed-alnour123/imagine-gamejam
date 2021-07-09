@@ -53,7 +53,7 @@ public class CameraLook : MonoBehaviour {
 
     private void Update() {
         if (Physics.Raycast(m_camera.transform.position, m_camera.transform.forward, out hit, InvestigateDistance)) {
-
+     // if(hit.collider.tag == "Examine"){ istargeting = true; if(input.getkey)}
             if (hit.collider.tag == "Examine") {
                 if (target != null && target != hit.collider.gameObject) {
                     target.GetComponent<Dialogs>().enabled = false;
