@@ -13,8 +13,7 @@ public class HPbar : MonoBehaviour {
     void Start() {
         sprite = GetComponent<Image>();
         pathFinding = GetComponentInParent<pathFinding>();
-
-
+        HPUI(false);
     }
 
     // Update is called once per frame

@@ -13,10 +13,6 @@ public class TestHealthBar : MonoBehaviour {
     }
 
     void Update() {
-        if (Input.anyKeyDown) {
-            guard.hp--;
-            print(guard.hp);
-        }
         foreground.localScale = new Vector3(guard.hp / guard.defaultHP, foreground.localScale.y, foreground.localScale.z);
     }
 }

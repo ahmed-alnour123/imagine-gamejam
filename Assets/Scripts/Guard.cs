@@ -48,6 +48,7 @@ public class Guard : MonoBehaviour {
 
 
     }
+
     void Attack() {
         if (!player.justAttacked) {
             player.hp--;
