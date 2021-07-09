@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class pathFinding : MonoBehaviour {
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
     private Player player;
     public float InvestigateDistance = 5f;
     public RaycastHit hit;
@@ -14,6 +14,8 @@ public class pathFinding : MonoBehaviour {
     public float chaseCooldown;
     public float isToutching;
     public Transform defaultpatrollingStart;
+    public float hp = 2;
+    public float defaultHP = 2;
 
     private Vector3 patrollingStart;
     public Transform defaultpatrollingEnd;
@@ -30,6 +32,7 @@ public class pathFinding : MonoBehaviour {
     }
 
     void Update() {
+        if (hp < 1) this.gameObject.SetActive(false);
         chaseCooldown = chaseTimer - Time.time;
 
         if (detected) ChasePlayer();

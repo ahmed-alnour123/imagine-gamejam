@@ -10,41 +10,54 @@ public class EventsManager : MonoBehaviour {
     private Player player;
     public GameObject playMenu;
     private Image noiseCounter;
+    private Image hpImage;
     public Text dialogBox;
     public bool isTalking = false;
     public float noise = 0;
-    private Transform[] guardsList;
     public Transform guards;
     public float dangerZone = 20f;
     public bool inDanger;
     public float dist;
+    private float playerHP;
+    private AudioManager audioManager;
+    private Image[] enemyHPbars;
     // Start is called before the first frame update
     private void Awake() {
         eventsManager = this;
     }
     void Start() {
-        guardsList = guards.GetComponentsInChildren<Transform>();
-        noiseCounter = playMenu.transform.GetChild(0).GetComponent<Image>();
-
+        noiseCounter = playMenu.transform.GetChild(1).GetComponent<Image>();
+        hpImage = playMenu.transform.GetChild(3).GetComponent<Image>();
         cameraLook = CameraLook.cameraLook;
+        audioManager = AudioManager.audioManager;
 
         player = Player.player;
+
 
     }
 
     void Update() {
+        playerHP = player.hp;
+        hpImage.fillAmount = playerHP / player.defaultHP;
+
         for (int i = 0; i < guards.childCount; i++) {
 
             dist = Vector3.Distance(player.transform.position, guards.GetChild(i).position);
 
 
             if (Vector3.Distance(player.transform.position, guards.GetChild(i).position) < dangerZone) {
+                guards.GetChild(i).GetComponentInChildren<HPbar>().HPUI(true);
 
+                if (noise > 99) {
+                    audioManager.Play(Sounds.enemyNotice);
+                    noise = 0;
+                    guards.GetChild(i).GetComponent<pathFinding>().detected = true;
+                }
                 inDanger = true;
                 break;
 
             } else {
-
+                guards.GetChild(i).GetComponentInChildren<HPbar>().HPUI(false);
                 inDanger = false;
 
             }
