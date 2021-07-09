@@ -30,6 +30,7 @@ public class CameraLook : MonoBehaviour {
     private Transform m_parent;
     private Transform m_camera;
     private float m_fieldOfView;
+    private GameObject pausemenu;
 
     public RaycastHit hit;
     #endregion
@@ -46,6 +47,7 @@ public class CameraLook : MonoBehaviour {
         m_parent = transform.parent;
         m_camera = transform;
 
+
         MouseLock();
     }
 
@@ -53,18 +55,28 @@ public class CameraLook : MonoBehaviour {
         if (Physics.Raycast(m_camera.transform.position, m_camera.transform.forward, out hit, InvestigateDistance)) {
 
             if (hit.collider.tag == "Examine") {
+                if (target != null && target != hit.collider.gameObject) {
+                    target.GetComponent<Dialogs>().enabled = false;
+                    target.GetComponent<Dialogs>().index = 0;
+                }
+
                 target = hit.collider.gameObject;
+                target.GetComponent<Dialogs>().enabled = true;
                 isTargeting = true;
             } else {
+
                 isTargeting = false;
             }
         } else {
+
             isTargeting = false;
 
         }
-        MouseInput();
-        RotatePlayY();
-        RotateCameraX();
+        if (!PauseMenu.gameIsPaused) {
+            MouseInput();
+            RotatePlayY();
+            RotateCameraX();
+        }
     }
 
     #endregion
