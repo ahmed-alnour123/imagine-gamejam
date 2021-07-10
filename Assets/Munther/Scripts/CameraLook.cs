@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -62,9 +63,14 @@ public class CameraLook : MonoBehaviour {
             isTargeting = false;
 
         }
-        MouseInput();
-        RotatePlayY();
-        RotateCameraX();
+        if (!PauseMenu.gameIsPaused) {
+            MouseInput();
+            RotatePlayY();
+            RotateCameraX();
+            isMouseLocked = true;
+        } else {
+            isMouseLocked = false;
+        }
     }
 
     #endregion

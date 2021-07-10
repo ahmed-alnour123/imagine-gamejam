@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +15,7 @@ public class EventsManager : MonoBehaviour {
     public Text dialogBox;
     public bool isTalking = false;
     public float noise = 0;
-    public Transform guards;
+    public Transform[] guards;
     public float dangerZone = 20f;
     public bool inDanger;
     public float dist;
@@ -40,24 +41,25 @@ public class EventsManager : MonoBehaviour {
         playerHP = player.hp;
         hpImage.fillAmount = playerHP / player.defaultHP;
 
-        for (int i = 0; i < guards.childCount; i++) {
+        guards = FindObjectsOfType<pathFinding>().Select(path => path.transform).ToArray();
+        foreach (var guard in guards) {
 
-            dist = Vector3.Distance(player.transform.position, guards.GetChild(i).position);
+            dist = Vector3.Distance(player.transform.position, guard.position);
 
 
-            if (Vector3.Distance(player.transform.position, guards.GetChild(i).position) < dangerZone) {
-                guards.GetChild(i).GetComponentInChildren<HPbar>().HPUI(true);
+            if (dist < dangerZone) {
+                guard.GetComponentInChildren<HPbar>().HPUI(true);
 
                 if (noise > 99) {
                     audioManager.Play(Sounds.enemyNotice);
                     noise = 0;
-                    guards.GetChild(i).GetComponent<pathFinding>().detected = true;
+                    guard.GetComponent<pathFinding>().detected = true;
                 }
                 inDanger = true;
                 break;
 
             } else {
-                guards.GetChild(i).GetComponentInChildren<HPbar>().HPUI(false);
+                guard.GetComponentInChildren<HPbar>().HPUI(false);
                 inDanger = false;
 
             }
@@ -83,5 +85,10 @@ public class EventsManager : MonoBehaviour {
         }
     }
 
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(Player.player.transform.position, dangerZone);
+    }
 
 }
