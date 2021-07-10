@@ -7,13 +7,14 @@ using UnityEngine;
 public class CameraLook : MonoBehaviour {
     #region PUBLIC FIELDS
 
-    [Header("Mouse Lock")] public bool isMouseLocked;
+    [Header("Mouse Lock")] public static bool isMouseLocked;
     [Header("Camera Field Of View")] public float cameraFieldOfViewMin;
     public float cameraFieldOfViewMax;
     public float fieldOfViewIncrement;
     public float cameraRotateXMin;
     public float cameraRotateXMax;
     public static CameraLook cameraLook;
+    public bool hasFruit = false;
 
     [Header("Mouse Smoothing")] public float mouseSmooth;
 
@@ -53,7 +54,19 @@ public class CameraLook : MonoBehaviour {
     private void Update() {
         if (Physics.Raycast(m_camera.transform.position, m_camera.transform.forward, out hit, InvestigateDistance)) {
 
-            if (hit.collider.tag == "Examine") {
+            if (hit.collider.tag == "Fruit") {
+                isTargeting = true;
+                if (Input.GetKeyDown(KeyCode.E)) {
+                    hit.collider.gameObject.SetActive(false);
+                    GameManager.gameManager.foundFlower = true;
+                }
+            } else if (hit.collider.tag == "ElderHouse") {
+                isTargeting = true;
+                if (Input.GetKeyDown(KeyCode.E)) {
+                    // hit.collider.gameObject.SetActive(false);
+                    // GameManager.gameManager.foundElderHouse = true;
+                }
+            } else if (hit.collider.tag == "Examine") {
                 target = hit.collider.gameObject;
                 isTargeting = true;
             } else {
@@ -71,6 +84,7 @@ public class CameraLook : MonoBehaviour {
         } else {
             isMouseLocked = false;
         }
+        MouseLock();
     }
 
     #endregion
@@ -94,13 +108,11 @@ public class CameraLook : MonoBehaviour {
 
     private void MouseLock() {
         if (isMouseLocked) {
-            Cursor.lockState = CursorLockMode.Confined;
-#if UNITY_EDITOR // to fix our linux and unity problem
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-#endif
             return;
         }
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

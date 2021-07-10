@@ -55,6 +55,7 @@ public class Guard : MonoBehaviour {
             player.hitTimer = Time.time + player.hitCooldown;
             audioManager.Play(Sounds.getHurt);
         }
+        animator.SetTrigger("Attack");
         audioManager.Play(Sounds.swordSwing);
         isAttacking = false;
     }

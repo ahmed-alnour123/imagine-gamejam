@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4208330298162561054}
   m_Layer: 0
   m_Name: Purple Boar
-  m_TagString: Untagged
+  m_TagString: PurplePig
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,7 +61,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1.09
-  m_Speed: 30
+  m_Speed: 15
   m_Acceleration: Infinity
   avoidancePriority: 50
   m_AngularSpeed: Infinity
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4208330299549446508}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: PurplePig
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,7 +124,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4208330299549446510}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.65
   m_Height: 2.02
@@ -196,6 +196,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1ac4bb7e4b07ce106a81e02307b91a2e, type: 3}
       propertyPath: m_Name
       value: purple_pig
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1ac4bb7e4b07ce106a81e02307b91a2e, type: 3}
+      propertyPath: m_TagString
+      value: PurplePig
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ac4bb7e4b07ce106a81e02307b91a2e, type: 3}

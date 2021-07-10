@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour {
     public static GameManager gameManager;
 
     Player player;
+    public bool foundPig = false;
+    public bool foundFlower = false;
+    public bool foundElderHouse = false;
 
     void Awake() {
         gameManager = this;
@@ -21,20 +24,22 @@ public class GameManager : MonoBehaviour {
             Lose();
         }
 
-        // if (foundFlower && foundPurplePig && reachedHome){
-        //     Win();
-        // }
+        if (foundFlower && foundPig && foundElderHouse) {
+            Win();
+        }
     }
 
     void Win() {
         Time.timeScale = 0;
         PauseMenu.gameIsPaused = true;
         // Todo: show win menu
+        print("Won");
     }
 
     void Lose() {
         Time.timeScale = 0;
         PauseMenu.gameIsPaused = true;
         // Todo: show lose menu
+        print("Lost");
     }
 }

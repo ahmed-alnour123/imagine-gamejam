@@ -72,7 +72,9 @@ public class pathFinding : MonoBehaviour {
     }
 
     public void Die() {
-        Destroy(gameObject);
+        Destroy(gameObject, 3f);
+        agent.isStopped = true;
+        GetComponentInChildren<Animator>().SetTrigger("isDead");
     }
 
     private void OnDrawGizmos() {

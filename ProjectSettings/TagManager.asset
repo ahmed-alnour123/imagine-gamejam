@@ -11,6 +11,9 @@ TagManager:
   - PlayerBody
   - animator
   - Enemy
+  - PurplePig
+  - Flower
+  - ElderHouse
   layers:
   - Default
   - TransparentFX

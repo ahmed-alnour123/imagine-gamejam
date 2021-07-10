@@ -24,6 +24,13 @@ public class PurpleBoar : MonoBehaviour, IHittable {
         return point;
     }
 
+    private void OnTriggerEnter(Collider other) {
+        if (other.tag == "PlayerBody") {
+            GameManager.gameManager.foundPig = true;
+            Destroy(gameObject);
+        }
+    }
+
     public void GetHit() {
     }
 }
