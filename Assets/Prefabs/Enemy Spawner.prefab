@@ -47,4 +47,4 @@ MonoBehaviour:
   enemyType: 0
   count: 10
   pig: {fileID: 2499608938775256559, guid: cf3e73cf0315e47c0baa5313f33fb957, type: 3}
-  guard: {fileID: 4897389620309273792, guid: 9b8ef44515f89ecb8adf7be99bfc24b7, type: 3}
+  guard: {fileID: 7277928561149791942, guid: 2c98204be6fed5378b6a3ccd43a10143, type: 3}

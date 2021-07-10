@@ -32,7 +32,10 @@ public class pathFinding : MonoBehaviour {
     }
 
     void Update() {
-        if (hp < 1) this.gameObject.SetActive(false);
+        if (hp < 1) {
+            Die();
+            // this.gameObject.SetActive(false);
+        }
         chaseCooldown = chaseTimer - Time.time;
 
         if (detected) ChasePlayer();
@@ -68,8 +71,12 @@ public class pathFinding : MonoBehaviour {
         else agent.SetDestination(patrollingEnd);
     }
 
+    public void Die() {
+        Destroy(gameObject);
+    }
+
     private void OnDrawGizmos() {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, InvestigateDistance);
     }
 }
