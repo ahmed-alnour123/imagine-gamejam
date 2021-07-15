@@ -22,7 +22,7 @@ public class Player : MonoBehaviour /* , IHittable*/ {
     private Transform cameraTarget;
     public static Player player;
     private AudioManager audioManager;
-    private Animator animator;
+    [HideInInspector] public Animator animator;
 
     //Local vars
     public float enemyFreeze = 1;

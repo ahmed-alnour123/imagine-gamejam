@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackRange : MonoBehaviour
-{
+public class AttackRange : MonoBehaviour {
     private Player player;
     private void Start() {
 
@@ -12,11 +11,12 @@ public class AttackRange : MonoBehaviour
     }
     private void Update() {
     }
-    
+
     private void OnTriggerStay(Collider other) {
-        if( player.attackTimer < Time.time && Input.GetKeyDown(KeyCode.Mouse0)){
+        if (player.attackTimer < Time.time && Input.GetKeyDown(KeyCode.Mouse0)) {
             player.PlayerAttack(other.gameObject);
-            
+            player.animator.SetTrigger("attack");
+
         }
     }
 }
