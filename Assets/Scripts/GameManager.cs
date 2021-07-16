@@ -6,10 +6,15 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
     public static GameManager gameManager;
 
+    [Header("Player")]
     Player player;
     public bool foundPig = false;
     public bool foundFlower = false;
     public bool foundElderHouse = false;
+
+    [Header("UI")]
+    public GameObject winMenu;
+    public GameObject loseMenu;
 
     void Awake() {
         gameManager = this;
@@ -33,6 +38,7 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 0;
         PauseMenu.gameIsPaused = true;
         // Todo: show win menu
+        winMenu.SetActive(true);
         print("Won");
     }
 
@@ -40,6 +46,7 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = 0;
         PauseMenu.gameIsPaused = true;
         // Todo: show lose menu
+        loseMenu.SetActive(true);
         print("Lost");
     }
 }

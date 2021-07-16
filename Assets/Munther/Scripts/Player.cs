@@ -63,7 +63,7 @@ public class Player : MonoBehaviour /* , IHittable*/ {
         if (!iscrouched) crouchTimer = Time.time;
         // While the player is Rolling he cant change direction or speed;
         if (isRolling && timer + rollingTime >= Time.time) {
-            rb.AddForce(100 * direction);
+            // rb.AddForce(100 * direction); // removed because there is no rolling animation
             iscrouched = wascrouching;
             coolDown = Time.time + rollingTime;
         } else {
@@ -167,8 +167,8 @@ public class Player : MonoBehaviour /* , IHittable*/ {
 
         }
         attackTimer = Time.time + attackCooldown;
-        audioManager.Play(Sounds.swordSwing);
-        //audioManager.Play(Sounds.hit);
+        // audioManager.Play(Sounds.swordSwing);
+        audioManager.Play(Sounds.hit);
     }
     IEnumerator FreezeFor(float _freezeSeconds, GameObject target) {
 
